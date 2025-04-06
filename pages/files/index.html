@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link rel="stylesheet" href="./assets/CSS/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <Header>
+        <div id="logo"><b>EducaFácil</b></div>
+        <nav>
+            <ul class="abas">
+                <li><a href="#">Instituição<br>de ensino</a></li>
+                <li><a href="#">Área do<br>professor</a></li>
+                <li><a href="#">Suporte da<br>plataforma</a></li>
+            </ul>
+        </nav>
+    </Header>
+    <aside>
+        <nav>
+            <ul class="ferramentas">
+                <p><b>Área de provas</b></p>
+                <li><a href="#">Nova prova</a></li>
+                <li><a href="#">Correção de prova</a></li>
+                <li><a href="#">Resultados</a></li>
+            </ul>
+            <ul class="ferramentas">
+                <p><b>Nova área</b></p>
+                <li><a href="#">Nova Feature</a></li>
+                <li><a href="#">Nova Feature</a></li>
+                <li><a href="#">Nova Feature</a></li>
+            </ul>
+            <ul class="ferramentas">
+                <p><b>Nova área</b></p>
+                <li><a href="#">Nova Feature</a></li>
+                <li><a href="#">Nova Feature</a></li>
+                <li><a href="#">Nova Feature</a></li>
+            </ul>
+        </nav>
+    </aside>
+    <section>
+        <h1>Arquivos</h1>
+        <button class="imprimir" data-tipo="gabarito">Imprimir Gabarito</button>
+        <button class="imprimir" data-tipo="prova">Imprimir Prova</button>
+        <button class="imprimir" data-tipo="folhaResposta">Imprimir Folha de resposta</button>
+        
+        <!-- Containers ocultos para impressão -->
+        <div id="print-container" style="display: none;"></div>
+    </section>
+    <button type="submit" class="voltar">Voltar</button>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./assets/JS/script.js"></script>
+</body>
+
+</html>

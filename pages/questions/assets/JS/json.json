@@ -1,0 +1,163 @@
+[{
+    "cabecalho":
+    {
+        "escola": "Escola",
+        "materia": "Matéria",
+        "professor": "Professor",
+        "descricao": "Descrição",
+        "anoEscolar": "Ano Escolar"
+    },
+    "assuntos": [
+        {
+            "id": 1,
+            "assunto": "Trigonometria",
+            "numeroQuestoes": 2,
+            "peso": 1
+        },
+        {
+            "id": 2,
+            "assunto": "Algebra",
+            "numeroQuestoes": 3,
+            "peso": 2
+        }
+    ],
+    "totalQuestoes": 5,
+    "totalPeso": 8,
+    "questoes": [
+        {
+            "id": 1,
+            "idAssunto": 1,
+            "enunciado": "Qual é o seno de 30 graus?",
+            "alternativas": [
+                {
+                    "descricao": "0.5",
+                    "correta": true
+                },
+                {
+                    "descricao": "0.7",
+                    "correta": false
+                },
+                {
+                    "descricao": "0.9",
+                    "correta": false
+                },
+                {
+                    "descricao": "1.0",
+                    "correta": false
+                },
+                {
+                    "descricao": "0.3",
+                    "correta": false
+                }  
+            ]
+        },
+        {
+            "id": 2,
+            "idAssunto": 1,
+            "enunciado": "Qual é o cosseno de 60 graus?",
+            "alternativas": [
+                {
+                    "descricao": "0.5",
+                    "correta": true
+                },
+                {
+                    "descricao": "0.7",
+                    "correta": false
+                },
+                {
+                    "descricao": "0.9",
+                    "correta": false
+                },
+                {
+                    "descricao": "1.0",
+                    "correta": false
+                },
+                {
+                    "descricao": "0.3",
+                    "correta": false
+                }  
+            ]
+        },
+        {
+            "id": 3,
+            "idAssunto": 2,
+            "enunciado": "Qual é a raiz quadrada de 16?",
+            "alternativas": [
+                {
+                    "descricao": "4",
+                    "correta": true
+                },
+                {
+                    "descricao": "5",
+                    "correta": false
+                },
+                {
+                    "descricao": "6",
+                    "correta": false
+                },
+                {
+                    "descricao": "7",
+                    "correta": false
+                },
+                {
+                    "descricao": "8",
+                    "correta": false
+                }  
+            ]
+        },
+        {
+            "id": 4,
+            "idAssunto": 2,
+            "enunciado": "Qual é o valor de x na equação 2x + 3 = 7?",
+            "alternativas": [
+                {
+                    "descricao": "2",
+                    "correta": true
+                },
+                {
+                    "descricao": "3",
+                    "correta": false
+                },
+                {
+                    "descricao": "4",
+                    "correta": false
+                },
+                {
+                    "descricao": "-1",
+                    "correta": false
+                },
+                {
+                    "descricao": "-2",
+                    "correta": false
+                }  
+            ]
+        },
+        {
+            "id": 5,
+            "idAssunto": 2,
+            "enunciado": "Qual é o valor de y na equação 3y - 4 = 5?",
+            "alternativas": [
+                {
+                    "descricao": "3",
+                    "correta": true
+                },
+                {
+                    "descricao": "4",
+                    "correta": false
+                },
+                {
+                    "descricao": "5",
+                    "correta": false
+                },
+                {
+                    "descricao": "-1",
+                    "correta": false
+                },
+                {
+                    "descricao": "-2",
+                    "correta": false
+                }  
+            ]
+        }
+    ]	
+}]

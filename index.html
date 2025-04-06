@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link rel="stylesheet" href="./assets/CSS/styles.css">
+</head>
+
+<body>
+    <Header>
+        <div id="logo"><b>EducaFácil</b></div>
+        <nav>
+            <ul class="abas">
+                <li><a href="#">Instituição<br>de ensino</a></li>
+                <li><a href="#">Área do<br>professor</a></li>
+                <li><a href="#">Suporte da<br>plataforma</a></li>
+            </ul>
+        </nav>
+    </Header>
+    <aside>
+        <nav>
+            <ul class="ferramentas">
+                <p><b>Área de provas</b></p>
+                <li><a href="#">Nova prova</a></li>
+                <li><a href="#">Correção de prova</a></li>
+                <li><a href="#">Resultados</a></li>
+            </ul>
+            <ul class="ferramentas">
+                <p><b>Nova área</b></p>
+                <li><a href="#">Nova Feature</a></li>
+                <li><a href="#">Nova Feature</a></li>
+                <li><a href="#">Nova Feature</a></li>
+            </ul>
+            <ul class="ferramentas">
+                <p><b>Nova área</b></p>
+                <li><a href="#">Nova Feature</a></li>
+                <li><a href="#">Nova Feature</a></li>
+                <li><a href="#">Nova Feature</a></li>
+            </ul>
+        </nav>
+    </aside>
+    <section>
+        <h1>Estrutura da prova</h1>
+        <div>
+            <h2>Cabeçalho</h2>
+            <div class="cabecalho">
+                <input type="text" name="escola" placeholder="Digite o nome da escola">
+                <input type="text" name="materia" placeholder="Digite o nome da matéria">
+                <input type="text" name="professor" placeholder="Digite o nome do professor">
+                <input type="text" name="anoEscolar" placeholder="Digite o ano escolar">
+                <textarea name="descricao" placeholder="Campo de descrição da prova"></textarea>
+            </div>
+        </div>
+        <div>
+            <h2>Assuntos</h2>
+            <div class="controls">
+                <button id="adicionar">Adicionar</button>
+                <button id="remover" disabled>Remover</button>
+            </div>
+            <div id="inputs-assuntos" class="inputs-assuntos">
+            </div>
+        </div>
+        <div class="configs-prova">
+            <div>
+                <h2>Número de questões/assunto</h2>
+                <div id="inputs-questoes" class="inputs-questoes">
+                </div>
+                <p id="total-questoes">Total de questões: 0</p>
+            </div>
+            <div>
+                <h2>Peso das questões/assunto</h2>
+                <div id="inputs-peso" class="inputs-peso">
+                </div>
+                <p id="total-peso">Peso total da prova: 0</p>
+            </div>
+        </div>
+    </section>
+    <button type="submit" class="avancar">Avançar</button>
+    <script src="./assets/JS/script.js"></script>
+</body>
+</html>

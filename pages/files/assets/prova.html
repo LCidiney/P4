@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prova</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        @media print {
+            body {
+                width: 21cm;
+                height: 29.7cm;
+                margin: 0;
+                padding: 2cm;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 21cm;
+            margin: 0 auto;
+            background: #fff;
+            padding: 2cm;
+        }
+        .cabecalho {
+            text-align: center;
+            margin-bottom: 3em;
+            border-bottom: 2px solid #000;
+            padding-bottom: 1.5em;
+        }
+        .cabecalho h2 {
+            font-size: 1.8em;
+            margin: 0 0 0.5em 0;
+            text-transform: uppercase;
+        }
+        .info-prova {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1em;
+            margin: 1em 0;
+            font-size: 0.9em;
+        }
+        .info-prova span {
+            font-weight: normal;
+        }
+        .descricao {
+            font-style: italic;
+            color: #666;
+            margin: 1em 0;
+            padding: 0.5em;
+            border-left: 3px solid #ccc;
+        }
+        .assunto {
+            font-weight: bold;
+            margin: 2em 0 1em 0;
+            padding: 0.5em 0;
+            border-bottom: 1px solid #ccc;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+        .questao {
+            margin-bottom: 2em;
+            page-break-inside: avoid;
+        }
+        .questao-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1em;
+        }
+        .numero {
+            background: #2c3e50;
+            color: white;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 1em;
+            font-weight: bold;
+        }
+        .peso {
+            font-size: 0.8em;
+            color: #666;
+            margin-left: auto;
+            border: 1px solid #ccc;
+            padding: 0.2em 0.5em;
+            border-radius: 3px;
+        }
+        .enunciado {
+            margin-bottom: 1em;
+            line-height: 1.6;
+            text-align: justify;
+        }
+        .alternativas {
+            margin-left: 3em;
+        }
+        .alternativas p {
+            margin: 0.8em 0;
+            padding: 0.5em;
+            border-radius: 4px;
+        }
+        .alternativas p:hover {
+            background-color: #f8f9fa;
+        }
+        footer {
+            margin-top: 3em;
+            text-align: center;
+            font-size: 0.8em;
+            color: #666;
+            border-top: 1px solid #ccc;
+            padding-top: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="cabecalho">
+        <h2 id="escola"></h2>
+        <div class="info-prova">
+            <p><strong>Matéria:</strong> <span id="materia"></span></p>
+            <p><strong>Professor:</strong> <span id="professor"></span></p>
+            <p><strong>Ano:</strong> <span id="anoEscolar"></span></p>
+        </div>
+        <p class="descricao" id="descricao"></p>
+    </div>
+    <div id="questoes"></div>
+    <footer>
+        <p>Boa prova!</p>
+    </footer>
+</body>
+</html>
