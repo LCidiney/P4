@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const MAX_ASSUNTOS = 4;
+    const MAX_QUESTOES_POR_ASSUNTO = 10;
     const adicionarBtn = document.getElementById('adicionar');
     const removerBtn = document.getElementById('remover');
     const assuntosContainer = document.getElementById('inputs-assuntos');
@@ -46,6 +48,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     adicionarBtn.addEventListener('click', function() {
+        // Verificar limite de assuntos
+        if (document.querySelectorAll('#inputs-assuntos .input-group').length >= MAX_ASSUNTOS) {
+            mostrarErro(`Não é possível adicionar mais que ${MAX_ASSUNTOS} assuntos.`);
+            return;
+        }
+
         const uniqueId = idCounter++;
         const inputGroupAssunto = document.createElement('div');
         inputGroupAssunto.className = 'input-group';
@@ -93,8 +101,16 @@ document.addEventListener('DOMContentLoaded', function() {
         inputQuestoes.type = 'number';
         inputQuestoes.value = '0';
         inputQuestoes.min = '0';
+        inputQuestoes.max = MAX_QUESTOES_POR_ASSUNTO.toString();
         inputQuestoes.className = 'input-number';
-        inputQuestoes.addEventListener('input', atualizarTotais);
+        inputQuestoes.addEventListener('input', function(e) {
+            const value = parseInt(e.target.value);
+            if (value > MAX_QUESTOES_POR_ASSUNTO) {
+                e.target.value = MAX_QUESTOES_POR_ASSUNTO;
+                mostrarErro(`Máximo de ${MAX_QUESTOES_POR_ASSUNTO} questões por assunto.`);
+            }
+            atualizarTotais();
+        });
         inputGroupQuestoes.appendChild(labelQuestoes);
         inputGroupQuestoes.appendChild(inputQuestoes);
         questoesContainer.appendChild(inputGroupQuestoes);
@@ -202,13 +218,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const questoesInput = document.querySelector(`#inputs-questoes .input-group[data-id="${id}"] input`);
             const pesoInput = document.querySelector(`#inputs-peso .input-group[data-id="${id}"] input`);
             
-            const questoes = parseInt(questoesInput.value) || 0;
+            const numeroQuestoes = parseInt(questoesInput.value) || 0;
             const peso = parseFloat(pesoInput.value) || 0;
             
             assuntos.push({
                 id,
                 assunto,
-                questoes,
+                numeroQuestoes,
                 peso
             });
         });
@@ -388,6 +404,18 @@ document.addEventListener('DOMContentLoaded', function() {
             // Redirecionar para a próxima página ou recarregar
             // window.location.href = 'proxima-pagina.html';
         });
+    }
+
+    // Função para mostrar alerta personalizado
+    function showAlert(message) {
+        document.getElementById('alertMessage').textContent = message;
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('customAlert').style.display = 'block';
+    }
+
+    function closeAlert() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('customAlert').style.display = 'none';
     }
 
     // Adicionar evento de clique ao botão Avançar

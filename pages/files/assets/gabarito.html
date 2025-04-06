@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabarito</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        @media print {
+            body {
+                width: 21cm;
+                height: 29.7cm;
+                margin: 0;
+                padding: 2cm;
+            }
+        }
+        
+        /* Estilos base da folha de resposta */
+        .header {
+            text-align: center;
+            margin-bottom: 1cm;
+            padding: 10px;
+            border-bottom: 2px solid #000;
+        }
+        .info-prova {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1em;
+            margin-bottom: 1cm;
+            font-size: 0.9em;
+        }
+        .info-prova span {
+            font-weight: normal;
+        }
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.2cm;
+            margin-top: 0.5cm;
+            height: calc(100% - 8cm);
+            align-content: start;
+            padding: 0 0.2cm;
+        }
+        .questions-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5cm;
+        }
+        .question {
+            display: flex;
+            align-items: center;
+            height: 1cm;
+            font-size: 11pt;
+            padding: 0 0.2cm;
+        }
+        .options {
+            display: flex;
+            gap: 0.25cm;
+            margin-left: 0.3cm;
+        }
+        .circle {
+            width: 0.5cm;
+            height: 0.5cm;
+            border: 1px solid #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10pt;
+            margin-right: 0.1cm;
+            background-color: transparent; /* Adicionado para garantir consistência */
+        }
+        .descricao {
+            margin-bottom: 0.5cm;
+            font-style: italic;
+        }
+
+        @media print {
+            /* Sobrescreve os estilos para impressão */
+            .circle.correct {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                background-color: #3ce488 !important;
+                border: 1px solid #2ab367 !important;
+                color: white !important;
+            }
+        }
+
+        /* Adicionar texto "GABARITO" como marca d'água */
+        #gabarito-wrapper::before {
+            content: "GABARITO";
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 5cm;
+            color: rgba(0, 0, 0, 0.1);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .header h1 {
+            color: #2ab367;
+        }
+
+        /* Adicionar numeração de página */
+        @page {
+            @bottom-right {
+                content: "Página " counter(page);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="gabarito-wrapper">
+        <div class="header">
+            <h1>Gabarito - <span id="materia"></span></h1>
+            <h1 id="escola"></h1>
+        </div>
+        <div class="info-prova">
+            <p><strong>Professor:</strong> <span id="professor"></span></p>
+            <p><strong>Ano Escolar:</strong> <span id="anoEscolar"></span></p>
+            <p><strong>Data:</strong>___/___/_____</p>
+            <p><strong>Total de Questões:</strong> <span id="totalQuestoes"></span></p>
+        </div>
+        <p class="descricao" id="descricao"></p>
+        <div id="questions-grid" class="questions-grid">
+            <div class="question">
+                1) 
+                <div class="options">
+                    <span class="circle">A</span>
+                    <span class="circle">B</span>
+                    <span class="circle">C</span>
+                    <span class="circle">D</span>
+                    <span class="circle">E</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
