@@ -54,25 +54,30 @@
             display: flex;
             align-items: center;
             height: 1cm;
-            font-size: 11pt;
+            font-size: 10pt;
             padding: 0 0.2cm;
+        }
+        .question-number {
+            font-weight: bold;
+            margin-right: 0.5cm;
+            min-width: 1.2cm;
         }
         .options {
             display: flex;
             gap: 0.25cm;
-            margin-left: 0.3cm;
+            margin-left: 0.1cm;
         }
         .circle {
             width: 0.5cm;
             height: 0.5cm;
-            border: 1px solid #000;
+            border: 2px solid #000;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10pt;
-            margin-right: 0.1cm;
-            background-color: transparent; /* Adicionado para garantir consistência */
+            font-size: 12pt;
+            margin-right: 0.02cm;
+            background-color: white;
         }
         .descricao {
             margin-bottom: 0.5cm;
@@ -85,7 +90,7 @@
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
                 background-color: #3ce488 !important;
-                border: 1px solid #2ab367 !important;
+                border: 2px solid #2ab367 !important;
                 color: white !important;
             }
         }

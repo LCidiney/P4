@@ -38,7 +38,7 @@
             grid-template-columns: repeat(4, 1fr);
             gap: 0.2cm;
             margin-top: 0.5cm;
-            height: calc(100% - 8cm); /* Space after header */
+            height: calc(100% - 8cm);
             align-content: start;
             padding: 0 0.2cm;
         }
@@ -52,7 +52,7 @@
             display: flex;
             align-items: center;
             height: 1cm;
-            font-size: 11pt;
+            font-size: 10pt;
             padding: 0 0.2cm;
         }
         .question-number {
@@ -63,23 +63,24 @@
         .options {
             display: flex;
             gap: 0.25cm;
-            margin-left: 0.3cm;
+            margin-left: 0.1cm;
         }
         .option {
             display: flex;
             align-items: center;
-            gap: 0.2cm;
+            gap: 0.02cm;
         }
         .circle {
             width: 0.5cm;
             height: 0.5cm;
-            border: 1px solid #000;
+            border: 2px solid #000;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10pt;
-            margin-right: 0.1cm;
+            font-size: 12pt;
+            margin-right: 0.02cm;
+            background-color: white;
         }
         .descricao {
             margin-bottom: 0.5cm;
@@ -88,6 +89,7 @@
     </style>
 </head>
 <body>
+    
     <div class="header">
         <h1>Folha de Respostas - <span id="materia"></span></h1>
         <h1 id="escola"></h1>
