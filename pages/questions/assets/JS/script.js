@@ -71,6 +71,11 @@ document.querySelectorAll('input[type="radio"]').forEach(radio => {
     });
 });
 
+// Add event listener for back button
+document.querySelector('.voltar').addEventListener('click', function() {
+    window.location.href = '../../index.html';
+});
+
 document.querySelector('.avancar').addEventListener('click', function (e) {
     e.preventDefault();
 

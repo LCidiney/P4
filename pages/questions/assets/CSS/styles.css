@@ -195,12 +195,21 @@ button {
     gap: 15px;
 }
 
-.avancar {
+.avancar, .voltar {
     position: fixed;
     display: block;
     width: fit-content;
     bottom: 25px;
     right: 50px;
+    background-color: #00ADA4;
+}
+
+.voltar {
+    position: fixed;
+    display: block;
+    width: fit-content;
+    bottom: 25px;
+    right: 150px;
     background-color: #00ADA4;
 }
 
