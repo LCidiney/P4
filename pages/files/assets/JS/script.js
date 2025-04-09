@@ -1,4 +1,19 @@
 $(document).ready(function() {
+    function distribuirQuestoesEmColunas(questions, maxQuestionsPerColumn = 10) {
+        const columns = [[]];
+        let currentColumn = 0;
+        
+        questions.forEach(question => {
+            if (columns[currentColumn].length >= maxQuestionsPerColumn) {
+                currentColumn++;
+                columns[currentColumn] = [];
+            }
+            columns[currentColumn].push(question);
+        });
+        
+        return columns;
+    }
+
     $('.imprimir').click(function(e) {
         e.preventDefault();
         const tipo = $(this).data('tipo');
@@ -20,7 +35,7 @@ $(document).ready(function() {
             
             const prova = provas[provas.length - 1];
             
-            if (tipo === 'folhaResposta') {
+            if (tipo === 'folhaResposta' || tipo === 'gabarito') {
                 setTimeout(() => {
                     // Preencher cabeçalho
                     $('#escola', printContainer).text(prova.cabecalho.escola);
@@ -29,25 +44,53 @@ $(document).ready(function() {
                     $('#anoEscolar', printContainer).text(prova.cabecalho.anoEscolar);
                     $('#descricao', printContainer).text(prova.cabecalho.descricao);
                     
-                    // Gerar grid de questões
+                    // Criar array com todas as questões
+                    const allQuestions = [];
+                    let questionNumber = 1;
+                    
+                    if (tipo === 'gabarito') {
+                        Object.values(prova.questoes).forEach(questoesAssunto => {
+                            questoesAssunto.forEach(questao => {
+                                allQuestions.push({
+                                    number: questionNumber++,
+                                    correta: questao.alternativaCorreta
+                                });
+                            });
+                        });
+                    } else {
+                        for (let i = 1; i <= prova.totalQuestoes; i++) {
+                            allQuestions.push({
+                                number: i
+                            });
+                        }
+                    }
+
+                    // Distribuir questões em colunas
+                    const columns = distribuirQuestoesEmColunas(allQuestions);
                     const questionsGrid = $('#questions-grid', printContainer);
                     questionsGrid.empty();
-                    
-                    let questionNumber = 1;
-                    const totalQuestions = prova.totalQuestoes;
-                    const questionsPerColumn = Math.ceil(totalQuestions / 4); // Divide as questões em 4 colunas
-                    
-                    // Criar div para cada coluna
-                    for (let col = 0; col < 4; col++) {
+
+                    // Criar colunas apenas conforme necessário
+                    columns.forEach(columnQuestions => {
                         const column = $('<div class="questions-column"></div>');
                         
-                        // Preencher questões na coluna atual
-                        for (let row = 0; row < questionsPerColumn; row++) {
-                            const currentQuestion = col * questionsPerColumn + row + 1;
-                            if (currentQuestion <= totalQuestions) {
-                                const questionHtml = `
+                        columnQuestions.forEach(question => {
+                            const questionHtml = tipo === 'gabarito' 
+                                ? `
                                     <div class="question">
-                                        ${formatQuestionNumber(currentQuestion)}. 
+                                        ${formatQuestionNumber(question.number)}. 
+                                        <div class="options">
+                                            <span class="circle${question.correta === 'A' ? ' correct' : ''}">A</span>
+                                            <span class="circle${question.correta === 'B' ? ' correct' : ''}">B</span>
+                                            <span class="circle${question.correta === 'C' ? ' correct' : ''}">C</span>
+                                            <span class="circle${question.correta === 'D' ? ' correct' : ''}">D</span>
+                                            <span class="circle${question.correta === 'E' ? ' correct' : ''}">E</span>
+                                        </div>
+                                    </div>
+                                `
+                                : `
+                                    <div class="question">
+                                        ${formatQuestionNumber(question.number)}. 
                                         <div class="options">
                                             <span class="circle">A</span>
                                             <span class="circle">B</span>
@@ -57,11 +100,11 @@ $(document).ready(function() {
                                         </div>
                                     </div>
                                 `;
-                                column.append(questionHtml);
-                            }
-                        }
+                            column.append(questionHtml);
+                        });
+                        
                         questionsGrid.append(column);
-                    }
+                    });
 
                     // Imprimir
                     const content = printContainer.html();
@@ -110,72 +153,6 @@ $(document).ready(function() {
                     });
                     
                     // Imprimir após preencher
-                    const content = printContainer.html();
-                    const printWindow = window.open('', '_blank');
-                    printWindow.document.write(content);
-                    printWindow.document.close();
-                    printWindow.focus();
-                    printWindow.print();
-                    printWindow.close();
-                }, 100);
-            } else if (tipo === 'gabarito') {
-                setTimeout(() => {
-                    // Preencher cabeçalho
-                    $('#escola', printContainer).text(prova.cabecalho.escola);
-                    $('#materia', printContainer).text(prova.cabecalho.materia);
-                    $('#professor', printContainer).text(prova.cabecalho.professor);
-                    $('#anoEscolar', printContainer).text(prova.cabecalho.anoEscolar);
-                    $('#descricao', printContainer).text(prova.cabecalho.descricao);
-                    $('#totalQuestoes', printContainer).text(prova.totalQuestoes);
-                    
-                    // Gerar grid de questões
-                    const questionsGrid = $('#questions-grid', printContainer);
-                    questionsGrid.empty();
-                    
-                    let questionNumber = 1;
-                    const questionsPerColumn = Math.ceil(prova.totalQuestoes / 4);
-                    
-                    // Criar array com todas as questões e suas respostas corretas
-                    const allQuestions = [];
-                    Object.values(prova.questoes).forEach(questoesAssunto => {
-                        questoesAssunto.forEach(questao => {
-                            allQuestions.push({
-                                number: questionNumber++,
-                                correta: questao.alternativaCorreta
-                            });
-                        });
-                    });
-                    
-                    questionNumber = 1; // Reset para criar o grid
-                    
-                    // Criar div para cada coluna
-                    for (let col = 0; col < 4; col++) {
-                        const column = $('<div class="questions-column"></div>');
-                        
-                        // Preencher questões na coluna atual
-                        for (let row = 0; row < questionsPerColumn; row++) {
-                            const currentQuestion = col * questionsPerColumn + row;
-                            if (currentQuestion < allQuestions.length) {
-                                const question = allQuestions[currentQuestion];
-                                const questionHtml = `
-                                    <div class="question">
-                                        ${formatQuestionNumber(question.number)}. 
-                                        <div class="options">
-                                            <span class="circle${question.correta === 'A' ? ' correct' : ''}">A</span>
-                                            <span class="circle${question.correta === 'B' ? ' correct' : ''}">B</span>
-                                            <span class="circle${question.correta === 'C' ? ' correct' : ''}">C</span>
-                                            <span class="circle${question.correta === 'D' ? ' correct' : ''}">D</span>
-                                            <span class="circle${question.correta === 'E' ? ' correct' : ''}">E</span>
-                                        </div>
-                                    </div>
-                                `;
-                                column.append(questionHtml);
-                            }
-                        }
-                        questionsGrid.append(column);
-                    }
-
-                    // Imprimir
                     const content = printContainer.html();
                     const printWindow = window.open('', '_blank');
                     printWindow.document.write(content);

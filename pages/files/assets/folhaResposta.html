@@ -7,14 +7,14 @@
     <style>
         @page {
             size: A4;
-            margin: 2cm;
+            margin: 1.5cm;
         }
         @media print {
             body {
                 width: 21cm;
                 height: 29.7cm;
                 margin: 0;
-                padding: 2cm;
+                padding: 1.5cm;
             }
         }
         .header {
@@ -34,9 +34,8 @@
             font-weight: normal;
         }
         .questions-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.2cm;
+            display: flex;
+            gap: 1cm;
             margin-top: 0.5cm;
             height: calc(100% - 8cm);
             align-content: start;
@@ -46,7 +45,8 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 0.5cm;
+            gap: 0.4cm;
+            max-width: 23%;
         }
         .question {
             display: flex;
@@ -73,7 +73,7 @@
         .circle {
             width: 0.5cm;
             height: 0.5cm;
-            border: 2px solid #000;
+            border: 1.5px solid #000;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -86,10 +86,50 @@
             margin-bottom: 0.5cm;
             font-style: italic;
         }
+        /* Novos estilos para escaneamento */
+        .scan-corners {
+            position: absolute;
+            width: 1cm;
+            height: 1cm;
+        }
+        .scan-corners.top-left { top: 0.5cm; left: 0.5cm; border-top: 3px solid #000; border-left: 3px solid #000; }
+        .scan-corners.top-right { top: 0.5cm; right: 0.5cm; border-top: 3px solid #000; border-right: 3px solid #000; }
+        .scan-corners.bottom-left { bottom: 0.5cm; left: 0.5cm; border-bottom: 3px solid #000; border-left: 3px solid #000; }
+        .scan-corners.bottom-right { bottom: 0.5cm; right: 0.5cm; border-bottom: 3px solid #000; border-right: 3px solid #000; }
+
+        .scan-id {
+            position: absolute;
+            top: 0.5cm;
+            right: 2cm;
+            display: flex;
+            gap: 0.2cm;
+        }
+
+        .id-box {
+            width: 0.8cm;
+            height: 0.8cm;
+            border: 2px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16pt;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
+    <div class="scan-corners top-left"></div>
+    <div class="scan-corners top-right"></div>
+    <div class="scan-corners bottom-left"></div>
+    <div class="scan-corners bottom-right"></div>
     
+    <div class="scan-id">
+        <div class="id-box">0</div>
+        <div class="id-box">0</div>
+        <div class="id-box">0</div>
+        <div class="id-box">1</div>
+    </div>
+
     <div class="header">
         <h1>Folha de Respostas - <span id="materia"></span></h1>
         <h1 id="escola"></h1>
