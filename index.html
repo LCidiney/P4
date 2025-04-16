@@ -7,56 +7,63 @@
     <title>index</title>
     <!-- <link rel="stylesheet" href="./assets/CSS/styles.css"> -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./assets/CSS/materialize/css/materialize.css">
 </head>
 
-<body>
-    <Header>
-        <div id="logo"><b>EducaFácil</b></div>
-        <nav>
-            <ul class="abas">
-                <li><a href="#">Instituição<br>de ensino</a></li>
-                <li><a href="#">Área do<br>professor</a></li>
-                <li><a href="#">Suporte da<br>plataforma</a></li>
+<body class="row">
+    <nav>
+        <div class="nav-wrapper green" style="padding: 0 20px;">
+            <a href="#" class="brand-logo"><b>EducaFácil</b></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#">Instituição de ensino</a></li>
+                <li><a href="#">Área do professor</a></li>
+                <li><a href="#">Suporte da plataforma</a></li>
             </ul>
-        </nav>
-    </Header>
-    <aside>
-        <nav>
-            <ul class="ferramentas">
-                <p><b>Área de provas</b></p>
-                <li><a href="./index.html">Nova prova</a></li>
-                <li><a href="./pages/correcao/index.html">Correção de prova</a></li>
-                <li><a href="#">Resultados</a></li>
-            </ul>
-            <ul class="ferramentas">
-                <p><b>Nova área</b></p>
-                <li><a href="#">Nova Feature</a></li>
-                <li><a href="#">Nova Feature</a></li>
-                <li><a href="#">Nova Feature</a></li>
-            </ul>
-            <ul class="ferramentas">
-                <p><b>Nova área</b></p>
-                <li><a href="#">Nova Feature</a></li>
-                <li><a href="#">Nova Feature</a></li>
-                <li><a href="#">Nova Feature</a></li>
-            </ul>
-        </nav>
-    </aside>
-    <section>
-        <h1>Estrutura da prova</h1>
+        </div>
+    </nav>
+    <nav class="col s12 m3 l2 grey" style="height: 100vh;">
+        <div class="collection">
+            <a href="./index.html" class="collection-item">Nova prova</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+        </div>
+    </nav>
+    <div class="col s12 m9 l10">
+        <h3>Estrutura da prova</h3>
         <div>
-            <h2>Cabeçalho</h2>
-            <div class="cabecalho">
-                <input type="text" name="escola" placeholder="Digite o nome da escola">
-                <input type="text" name="materia" placeholder="Digite o nome da matéria">
-                <input type="text" name="professor" placeholder="Digite o nome do professor">
-                <input type="text" name="anoEscolar" placeholder="Digite o ano escolar">
-                <textarea name="descricao" placeholder="Campo de descrição da prova"></textarea>
+            <h4>Cabeçalho</h4>
+            <div class="row">
+                <form class="s12">
+                    <div class="row col s12 m12 l12">
+                        <div class="input-field col s12 m12 l6">
+                            <input type="text" name="escola" placeholder="Digite o nome da escola">
+                        </div>
+                        <div class="input-field col s12 m12 l6">
+                            <input type="text" name="professor" placeholder="Digite o nome do professor">
+                        </div>
+                        <div class="input-field col s12 m12 l6">
+                            <input type="text" name="materia" placeholder="Digite o nome da matéria">
+                        </div>
+                        <div class="input-field col s12 m12 l6">
+                            <input type="text" name="anoEscolar" placeholder="Digite o ano escolar">
+                        </div>
+                    </div>
+                    <div class="row col s12">
+                        <div class="input-field col s12">
+                            <textarea name="descricao" placeholder="Campo de descrição da prova"></textarea>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
         <div>
-            <h2>Assuntos</h2>
+            <h4>Assuntos</h4>
             <div class="controls">
                 <button id="adicionar">Adicionar</button>
                 <button id="remover" disabled>Remover</button>
@@ -66,19 +73,19 @@
         </div>
         <div class="configs-prova">
             <div>
-                <h2>Número de questões/assunto</h2>
+                <h4>Número de questões/assunto</h4>
                 <div id="inputs-questoes" class="inputs-questoes">
                 </div>
                 <p id="total-questoes">Total de questões: 0</p>
             </div>
             <div>
-                <h2>Peso das questões/assunto</h2>
+                <h4>Peso das questões/assunto</h4>
                 <div id="inputs-peso" class="inputs-peso">
                 </div>
                 <p id="total-peso">Peso total da prova: 0</p>
             </div>
         </div>
-    </section>
+    </div>
     <button type="submit" class="avancar">Avançar</button>
     <div class="overlay" id="overlay"></div>
     <div class="custom-alert" id="customAlert">
@@ -87,8 +94,8 @@
         <button onclick="closeAlert()">OK</button>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="./assets/JS/js/materialize.min.js"></script>
     <script src="./assets/JS/script.js"></script>
 </body>
 
