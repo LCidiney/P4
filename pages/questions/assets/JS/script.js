@@ -14,44 +14,59 @@ function gerarQuestoes() {
 
     dadosProva.assuntos.forEach((assunto) => {
         // Adiciona um título para o assunto
-        const tituloAssunto = document.createElement("p");
-        tituloAssunto.classList.add("assunto-titulo");
+        const tituloAssunto = document.createElement("h5");
+        tituloAssunto.classList.add("assunto-titulo", "center-align", "col", "s12");
         tituloAssunto.textContent = `Assunto: ${assunto.assunto}`;
         container.appendChild(tituloAssunto);
 
         // Gera as questões para o assunto atual
         for (let i = 0; i < assunto.numeroQuestoes; i++) {
-            const questaoSection = document.createElement("section");
-            questaoSection.classList.add("question");
+            const questaoDiv = document.createElement("div");
+            questaoDiv.classList.add("question", "col", 'l12');
 
-            questaoSection.innerHTML = `
-                <div class="enunciado">
-                    <p class="number-question">${numeroQuestao}</p>
-                    <textarea name="enunciado" placeholder="Descreva o enunciado da questão sobre ${assunto.assunto} (Peso: ${assunto.peso})"></textarea>
+            questaoDiv.innerHTML = `
+                <div class="enunciado col l12">
+                    <p class="number-question col l1 green">${numeroQuestao}</p>
+                    <textarea class="col l11" name="enunciado" placeholder="Descreva o enunciado da questão sobre ${assunto.assunto} (Peso: ${assunto.peso})"></textarea>
                 </div>
-                <div class="alternatives">
-                    <input type="radio" id="correct-A-${numeroQuestao}" name="correct-${numeroQuestao}" value="A">
-                    <input type="text" id="A-${numeroQuestao}" name="A" class="alternatives" placeholder="Descreva a alternativa">
+                <div class="alternatives col l12">
+                    <label class="col l1">
+                    <input type="radio" id="correct-A-${numeroQuestao}" name="correct-${numeroQuestao}" value="A"/>
+                    <span>A</span>
+                    </label>
+                    <input type="text" id="A-${numeroQuestao}" name="A" class="alternatives col l11" placeholder="Descreva a alternativa"/>
                 </div>
-                <div class="alternatives">
-                    <input type="radio" id="correct-B-${numeroQuestao}" name="correct-${numeroQuestao}" value="B">
-                    <input type="text" id="B-${numeroQuestao}" name="B" class="alternatives" placeholder="Descreva a alternativa">
+                <div class="alternatives col l12">
+                    <label class="col l1">
+                    <input  type="radio" id="correct-B-${numeroQuestao}" name="correct-${numeroQuestao}" value="B"/>
+                    <span>B</span>
+                    </label>
+                    <input type="text" id="B-${numeroQuestao}" name="B" class="alternatives col l11" placeholder="Descreva a alternativa"/>
                 </div>
-                <div class="alternatives">
-                    <input type="radio" id="correct-C-${numeroQuestao}" name="correct-${numeroQuestao}" value="C">
-                    <input type="text" id="C-${numeroQuestao}" name="C" class="alternatives" placeholder="Descreva a alternativa">
+                <div class="alternatives col l12">
+                    <label class="col l1">
+                    <input  type="radio" id="correct-C-${numeroQuestao}" name="correct-${numeroQuestao}" value="C"/>
+                    <span>C</span>
+                    </label>
+                    <input type="text" id="C-${numeroQuestao}" name="C" class="alternatives col l11" placeholder="Descreva a alternativa"/>
                 </div>
-                <div class="alternatives">
-                    <input type="radio" id="correct-D-${numeroQuestao}" name="correct-${numeroQuestao}" value="D">
-                    <input type="text" id="D-${numeroQuestao}" name="D" class="alternatives" placeholder="Descreva a alternativa">
+                <div class="alternatives col l12">
+                    <label class="col l1">
+                    <input  type="radio" id="correct-D-${numeroQuestao}" name="correct-${numeroQuestao}" value="D"/>
+                    <span>D</span>
+                    </label>
+                    <input type="text" id="D-${numeroQuestao}" name="D" class="alternative col l11" placeholder="Descreva a alternativa"/>
                 </div>
-                <div class="alternatives">
-                    <input type="radio" id="correct-E-${numeroQuestao}" name="correct-${numeroQuestao}" value="E">
-                    <input type="text" id="E-${numeroQuestao}" name="E" class="alternatives" placeholder="Descreva a alternativa">
+                <div class="alternatives col l12">
+                    <label class="col l1">
+                    <input  type="radio" id="correct-E-${numeroQuestao}" name="correct-${numeroQuestao}" value="E"/>
+                    <span>E</span>
+                    </label>
+                    <input type="text" id="E-${numeroQuestao}" name="E" class="alternative col l11" placeholder="Descreva a alternativa"/>
                 </div>
             `;
 
-            container.appendChild(questaoSection);
+            container.appendChild(questaoDiv);
             numeroQuestao++;
         }
     });

@@ -5,54 +5,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>index</title>
+      
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/CSS/materialize/css/materialize.css">
     <link rel="stylesheet" href="./assets/CSS/styles.css">
 </head>
 
-<body>
-    <Header>
-        <div id="logo"><b>EducaFácil</b></div>
-        <nav>
-            <ul class="abas">
-                <li><a href="#">Instituição<br>de ensino</a></li>
-                <li><a href="#">Área do<br>professor</a></li>
-                <li><a href="#">Suporte da<br>plataforma</a></li>
+<body class="row">
+    <nav>
+        <div class="nav-wrapper green" style="padding: 0 20px;">
+            <a href="#" class="brand-logo"><b>EducaFácil</b></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#">Instituição de ensino</a></li>
+                <li><a href="#">Área do professor</a></li>
+                <li><a href="#">Suporte da plataforma</a></li>
             </ul>
-        </nav>
-    </Header>
-    <aside>
-        <nav>
-            <ul class="ferramentas">
-                <p><b>Área de provas</b></p>
-                <li><a href="../../index.html">Nova prova</a></li>
-                <li><a href="../correcao/index.html">Correção de prova</a></li>
-                <li><a href="#">Resultados</a></li>
-            </ul>
-            <ul class="ferramentas">
-                <p><b>Nova área</b></p>
-                <li><a href="#">Nova Feature</a></li>
-                <li><a href="#">Nova Feature</a></li>
-                <li><a href="#">Nova Feature</a></li>
-            </ul>
-            <ul class="ferramentas">
-                <p><b>Nova área</b></p>
-                <li><a href="#">Nova Feature</a></li>
-                <li><a href="#">Nova Feature</a></li>
-                <li><a href="#">Nova Feature</a></li>
-            </ul>
-        </nav>
-    </aside>
-    <section id="questoes-container">
-        <h1>Criação de questões</h1>
-        
+        </div>
+    </nav>
+    <nav class="col s12 m3 l2 grey" style="height: 100vh;">
+        <div class="collection">
+            <a href="./index.html" class="collection-item">Nova prova</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+        </div>
+    </nav>
+    <section class="col s12 m9 l10" id="questoes-container">
+        <h4>Criação de questões</h4>
     </section>
-    <button type="submit" class="voltar">Voltar</button>
+
+    <div class="fixed-action-btn voltar">
+        <button class="btn-floating btn-large waves-effect waves-light green" id="voltar">
+            <i class="large material-icons">arrow_back</i>
+        </button>
+    </div>
+
+    <div class="fixed-action-btn avancar">
+        <button class="btn-floating btn-large waves-effect waves-light green" id="avancar">
+            <i class="large material-icons">arrow_forward</i>
+        </button>
+    </div>
+
+    <!-- Modal de Erro -->
+    <div id="modalError" class="modal">
+        <div class="modal-content">
+            <h4><i class="material-icons left red-text">error</i>Atenção</h4>
+            <p id="errorMessage"></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fechar</a>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="modalConfirm" class="modal">
+        <div class="modal-content">
+            <h4><i class="material-icons left">help</i>Confirmação</h4>
+            <p>Deseja avançar com os dados preenchidos?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="confirmAction">Confirmar</a>
+        </div>
+    </div>
+
+    <!-- Modal de Sucesso -->
+    <div id="modalSuccess" class="modal">
+        <div class="modal-content">
+            <h4><i class="material-icons left green-text">check_circle</i>Sucesso!</h4>
+            <p>Dados salvos com sucesso!</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="successAction">OK</a>
+        </div>
+    </div>
+    <!--<button type="submit" class="voltar">Voltar</button>
     <button type="submit" class="avancar">Avançar</button>
     <div class="overlay" id="overlay"></div>
     <div class="custom-alert" id="customAlert">
         <h3>Atenção</h3>
         <p id="alertMessage"></p>
         <button onclick="closeAlert()">OK</button>
-    </div>
+    </div>-->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="./assets/JS/js/materialize.min.js"></script>
     <script src="./assets/JS/script.js"></script>
 </body>
 
