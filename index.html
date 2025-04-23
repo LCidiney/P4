@@ -62,31 +62,39 @@
                 </form>
             </div>
         </div>
-        <div>
-            <h4>Assuntos</h4>
-            <div class="controls">
-                <button id="adicionar">Adicionar</button>
-                <button id="remover" disabled>Remover</button>
-            </div>
-            <div id="inputs-assuntos" class="inputs-assuntos">
-            </div>
-        </div>
-        <div class="configs-prova">
-            <div>
-                <h4>Número de questões/assunto</h4>
-                <div id="inputs-questoes" class="inputs-questoes">
-                </div>
+    </div>
+    <div class="row col s12 m9 l10">
+        <h4>Configuração dos Assuntos</h4>
+        <table class="striped centered">
+            <thead>
+                <tr>
+                    <th>Assunto</th>
+                    <th>Quantidade de questões</th>
+                    <th>Peso</th>
+                    <th style="width: 150px; text-align: right;">
+                        <button id="adicionar" class="waves-effect waves-light btn-small green">
+                            <i class="material-icons">add</i>
+                        </button>
+                        <button id="remover" class="waves-effect waves-light btn-small red" disabled>
+                            <i class="material-icons">remove</i>
+                        </button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Linhas da tabela serão adicionadas dinamicamente -->
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col s6">
                 <p id="total-questoes">Total de questões: 0</p>
             </div>
-            <div>
-                <h4>Peso das questões/assunto</h4>
-                <div id="inputs-peso" class="inputs-peso">
-                </div>
+            <div class="col s6">
                 <p id="total-peso">Peso total da prova: 0</p>
             </div>
         </div>
     </div>
-    <button type="submit" class="avancar">Avançar</button>
+    <button type="submit" class="avancar waves-effect waves-light btn">Avançar</button>
     <div class="overlay" id="overlay"></div>
     <div class="custom-alert" id="customAlert">
         <h3>Atenção</h3>
