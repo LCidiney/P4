@@ -3,107 +3,63 @@ document.addEventListener('DOMContentLoaded', function() {
     const MAX_QUESTOES_POR_ASSUNTO = 10;
     const adicionarBtn = document.getElementById('adicionar');
     const removerBtn = document.getElementById('remover');
-    const assuntosContainer = document.getElementById('inputs-assuntos');
-    const questoesContainer = document.getElementById('inputs-questoes');
-    const pesoContainer = document.getElementById('inputs-peso');
+    const tableBody = document.getElementById('table-body');
     const totalQuestoesElement = document.getElementById('total-questoes');
     const totalPesoElement = document.getElementById('total-peso');
-    const avancarBtn = document.querySelector('.avancar');
-    let inputSelecionado = null;
     let idCounter = 0;
-
-    function atualizarNumeracao() {
-        // Atualiza a numeração dos assuntos
-        const inputGroupsAssunto = document.querySelectorAll('#inputs-assuntos .input-group');
-        inputGroupsAssunto.forEach((group, index) => {
-            const label = group.querySelector('.numero-assunto');
-            if (label) {
-                label.textContent = `${index + 1}. `;
-            }
-        });
-    }
+    let selectedRowId = null;
 
     function atualizarTotais() {
         let totalQuestoes = 0;
         let totalPeso = 0;
     
-        const inputsQuestoes = document.querySelectorAll('#inputs-questoes input');
-        const inputsPeso = document.querySelectorAll('#inputs-peso input');
-        
-        // Correção: usar índices separados para iterar sobre questões e pesos
-        inputsQuestoes.forEach((input, index) => {
-            const numQuestoes = parseInt(input.value) || 0;
-            totalQuestoes += numQuestoes;
+        const rows = tableBody.getElementsByTagName('tr');
+        Array.from(rows).forEach(row => {
+            const questoes = parseInt(row.querySelector('input[type="number"].questoes').value) || 0;
+            const peso = parseFloat(row.querySelector('input[type="number"].peso').value) || 0;
             
-            // Verificar se existe um peso correspondente na mesma posição
-            if (inputsPeso[index]) {
-                const pesoBase = parseFloat(inputsPeso[index].value) || 0.0;
-                const pesoParcial = pesoBase * numQuestoes;
-                totalPeso += pesoParcial;
-            }
+            totalQuestoes += questoes;
+            totalPeso += questoes * peso;
         });
     
         totalQuestoesElement.textContent = `Total de questões: ${totalQuestoes}`;
         totalPesoElement.textContent = `Peso total da prova: ${totalPeso.toFixed(1)}`;
     }
 
-    adicionarBtn.addEventListener('click', function() {
-        // Verificar limite de assuntos
-        if (document.querySelectorAll('#inputs-assuntos .input-group').length >= MAX_ASSUNTOS) {
-            mostrarErro(`Não é possível adicionar mais que ${MAX_ASSUNTOS} assuntos.`);
+    function criarLinha() {
+        if (tableBody.children.length >= MAX_ASSUNTOS) {
+            const mensagem = `Não é possível adicionar mais que ${MAX_ASSUNTOS} assuntos.`;
+            $('#errorMessage').html(mensagem);
+            $('#modalError').modal('open');
             return;
         }
 
-        const uniqueId = idCounter++;
-        const inputGroupAssunto = document.createElement('div');
-        inputGroupAssunto.className = 'input-group';
-        inputGroupAssunto.dataset.id = uniqueId;
+        const uniqueId = `row-${idCounter++}`;
+        const tr = document.createElement('tr');
+        tr.dataset.id = uniqueId;
+        
+        tr.innerHTML = `
+            <td>
+                <input type="text" placeholder="Digite o assunto..." class="assunto">
+            </td>
+            <td>
+                <input type="number" value="0" min="0" max="${MAX_QUESTOES_POR_ASSUNTO}" class="questoes">
+            </td>
+            <td>
+                <input type="number" value="1.0" min="0" step="0.1" class="peso">
+            </td>
+            <td style="text-align: right;">
+                <button class="select-btn waves-effect waves-light btn-small">
+                    <i class="material-icons">check</i>
+                </button>
+            </td>
+        `;
 
-        // Adicionar label de numeração
-        const numeroLabel = document.createElement('span');
-        numeroLabel.className = 'numero-assunto';
-        numeroLabel.textContent = `${document.querySelectorAll('#inputs-assuntos .input-group').length + 1}. `;
+        tableBody.appendChild(tr);
 
-        const inputAssunto = document.createElement('input');
-        inputAssunto.type = 'text';
-        inputAssunto.placeholder = 'Digite o assunto...';
-
-        const selectBtn = document.createElement('button');
-        selectBtn.className = 'select-btn';
-        selectBtn.textContent = 'Selecionar';
-
-        selectBtn.addEventListener('click', function() {
-            document.querySelectorAll('.input-group').forEach(el => {
-                el.classList.remove('selected');
-            });
-
-            document.querySelectorAll(`.input-group[data-id="${uniqueId}"]`).forEach(el => {
-                el.classList.add('selected');
-            });
-
-            removerBtn.disabled = false;
-            inputSelecionado = uniqueId;
-        });
-
-        inputGroupAssunto.appendChild(numeroLabel);
-        inputGroupAssunto.appendChild(inputAssunto);
-        inputGroupAssunto.appendChild(selectBtn);
-        assuntosContainer.appendChild(inputGroupAssunto);
-
-        const inputGroupQuestoes = document.createElement('div');
-        inputGroupQuestoes.className = 'input-group';
-        inputGroupQuestoes.dataset.id = uniqueId;
-
-        const labelQuestoes = document.createElement('label');
-        labelQuestoes.textContent = 'Questões: ';
-
-        const inputQuestoes = document.createElement('input');
-        inputQuestoes.type = 'number';
-        inputQuestoes.value = '0';
-        inputQuestoes.min = '0';
-        inputQuestoes.max = MAX_QUESTOES_POR_ASSUNTO.toString();
-        inputQuestoes.className = 'input-number';
-        inputQuestoes.addEventListener('input', function(e) {
+        // Adicionar event listeners
+        const questoesInput = tr.querySelector('.questoes');
+        questoesInput.addEventListener('input', function(e) {
             const value = parseInt(e.target.value);
             if (value > MAX_QUESTOES_POR_ASSUNTO) {
                 e.target.value = MAX_QUESTOES_POR_ASSUNTO;
@@ -111,43 +67,32 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             atualizarTotais();
         });
-        inputGroupQuestoes.appendChild(labelQuestoes);
-        inputGroupQuestoes.appendChild(inputQuestoes);
-        questoesContainer.appendChild(inputGroupQuestoes);
 
-        const inputGroupPeso = document.createElement('div');
-        inputGroupPeso.className = 'input-group';
-        inputGroupPeso.dataset.id = uniqueId;
+        const pesoInput = tr.querySelector('.peso');
+        pesoInput.addEventListener('input', atualizarTotais);
 
-        const labelPeso = document.createElement('label');
-        labelPeso.textContent = 'Peso: ';
-
-        const inputPeso = document.createElement('input');
-        inputPeso.type = 'number';
-        inputPeso.step = '0.1';
-        inputPeso.value = '1.0';
-        inputPeso.min = '0';
-        inputPeso.className = 'input-number';
-        inputPeso.addEventListener('input', atualizarTotais);
-        inputGroupPeso.appendChild(labelPeso);
-        inputGroupPeso.appendChild(inputPeso);
-        pesoContainer.appendChild(inputGroupPeso);
+        const selectBtn = tr.querySelector('.select-btn');
+        selectBtn.addEventListener('click', function() {
+            document.querySelectorAll('tr').forEach(row => row.classList.remove('selected'));
+            tr.classList.add('selected');
+            selectedRowId = uniqueId;
+            removerBtn.disabled = false;
+        });
 
         atualizarTotais();
-    });
+    }
+
+    adicionarBtn.addEventListener('click', criarLinha);
 
     removerBtn.addEventListener('click', function() {
-        if (inputSelecionado !== null) {
-            document.querySelectorAll(`.input-group[data-id="${inputSelecionado}"]`).forEach(el => {
-                el.parentNode.removeChild(el);
-            });
-
-            inputSelecionado = null;
-            removerBtn.disabled = true;
-            
-            // Atualizar a numeração após remover um item
-            atualizarNumeracao();
-            atualizarTotais();
+        if (selectedRowId) {
+            const row = document.querySelector(`tr[data-id="${selectedRowId}"]`);
+            if (row) {
+                row.remove();
+                selectedRowId = null;
+                removerBtn.disabled = true;
+                atualizarTotais();
+            }
         }
     });
 
@@ -169,17 +114,17 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!descricao) camposInvalidos.push('Descrição da prova');
 
         // Verificar se existe pelo menos um assunto
-        const assuntos = document.querySelectorAll('#inputs-assuntos .input-group');
+        const assuntos = tableBody.getElementsByTagName('tr');
         if (assuntos.length === 0) {
             camposInvalidos.push('Pelo menos um assunto deve ser adicionado');
             return { valido: false, camposInvalidos };
         }
 
         // Verificar se todos os assuntos estão preenchidos
-        const assuntosInputs = document.querySelectorAll('#inputs-assuntos input[type="text"]');
         let assuntosVazios = false;
-        assuntosInputs.forEach((input, index) => {
-            if (!input.value.trim()) {
+        Array.from(assuntos).forEach(row => {
+            const assuntoInput = row.querySelector('input[type="text"].assunto');
+            if (!assuntoInput.value.trim()) {
                 assuntosVazios = true;
             }
         });
@@ -210,13 +155,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Coletar dados dos assuntos, questões e pesos
         const assuntos = [];
-        const assuntosInputs = document.querySelectorAll('#inputs-assuntos .input-group');
+        const rows = tableBody.getElementsByTagName('tr');
         
-        assuntosInputs.forEach((grupo) => {
-            const id = grupo.dataset.id;
-            const assunto = grupo.querySelector('input[type="text"]').value.trim();
-            const questoesInput = document.querySelector(`#inputs-questoes .input-group[data-id="${id}"] input`);
-            const pesoInput = document.querySelector(`#inputs-peso .input-group[data-id="${id}"] input`);
+        Array.from(rows).forEach(row => {
+            const id = row.dataset.id;
+            const assunto = row.querySelector('input[type="text"].assunto').value.trim();
+            const questoesInput = row.querySelector('input[type="number"].questoes');
+            const pesoInput = row.querySelector('input[type="number"].peso');
             
             const numeroQuestoes = parseInt(questoesInput.value) || 0;
             const peso = parseFloat(pesoInput.value) || 0;
@@ -251,13 +196,12 @@ document.addEventListener('DOMContentLoaded', function() {
         mensagemErro.className = 'mensagem-erro';
         mensagemErro.innerHTML = `
             <div class="erro-conteudo">
-                <h3>Atenção</h3>
+                <h4><i class="material-icons left red-text">error</i>Atenção</h4>
                 <p>${mensagem}</p>
-                <button class="fechar-erro">Fechar</button>
             </div>
         `;
         document.body.appendChild(mensagemErro);
-
+/*
         // Adicionar estilos para a mensagem de erro
         mensagemErro.style.position = 'fixed';
         mensagemErro.style.top = '0';
@@ -285,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fecharBtn.style.borderRadius = '4px';
         fecharBtn.style.cursor = 'pointer';
         fecharBtn.style.marginTop = '15px';
-
+*/
         fecharBtn.addEventListener('click', function() {
             document.body.removeChild(mensagemErro);
         });
@@ -418,7 +362,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('customAlert').style.display = 'none';
     }
 
-    // Adicionar evento de clique ao botão Avançar
+    /* Adicionar evento de clique ao botão Avançar
     avancarBtn.addEventListener('click', function() {
         // Validar formulário
         const { valido, camposInvalidos } = validarFormulario();
@@ -450,6 +394,111 @@ document.addEventListener('DOMContentLoaded', function() {
                 mostrarSucesso();
                 window.location.href = './pages/questions/index.html';
             }
+        });
+    });*/
+});
+
+$(document).ready(function() {
+    // Inicializar modais
+    $('.modal').modal();
+    
+    // Validar campos obrigatórios
+    function validarFormulario() {
+        const campos = {
+            escola: $('input[name="escola"]').val(),
+            professor: $('input[name="professor"]').val(),
+            materia: $('input[name="materia"]').val(),
+            anoEscolar: $('input[name="anoEscolar"]').val(),
+            descricao: $('textarea[name="descricao"]').val()
+        };
+
+        const assuntos = [];
+        $('#table-body tr').each(function() {
+            assuntos.push({
+                assunto: $(this).find('.assunto').val(),
+                questoes: $(this).find('.questoes').val(),
+                peso: $(this).find('.peso').val()
+            });
+        });
+
+        const camposVazios = [];
+        
+        // Validar campos do cabeçalho
+        Object.entries(campos).forEach(([campo, valor]) => {
+            if (!valor || valor.trim() === '') {
+                camposVazios.push(campo.charAt(0).toUpperCase() + campo.slice(1));
+            }
+        });
+
+        // Validar assuntos
+        if (assuntos.length === 0) {
+            camposVazios.push('Pelo menos um assunto');
+        } else {
+            assuntos.forEach((assunto, index) => {
+                if (!assunto.assunto || assunto.assunto.trim() === '') {
+                    camposVazios.push(`Assunto ${index + 1}`);
+                }
+                if (!assunto.questoes || assunto.questoes <= 0) {
+                    camposVazios.push(`Quantidade de questões do assunto ${index + 1}`);
+                }
+            });
+        }
+
+        return {
+            valido: camposVazios.length === 0,
+            camposVazios: camposVazios
+        };
+    }
+
+    // Handler do botão avançar
+    $('#avancar').click(function() {
+        const validacao = validarFormulario();
+        
+        if (!validacao.valido) {
+            // Mostrar modal de erro
+            const mensagem = `Por favor, preencha os seguintes campos:<br><ul>
+                ${validacao.camposVazios.map(campo => `<li>${campo}</li>`).join('')}
+            </ul>`;
+            $('#errorMessage').html(mensagem);
+            $('#modalError').modal('open');
+            return;
+        }
+
+        // Mostrar modal de confirmação
+        $('#modalConfirm').modal('open');
+    });
+
+    // Handler do botão confirmar
+    $('#confirmAction').click(function() {
+        // Coletar e salvar dados
+        const dadosProva = {
+            cabecalho: {
+                escola: $('input[name="escola"]').val(),
+                professor: $('input[name="professor"]').val(),
+                materia: $('input[name="materia"]').val(),
+                anoEscolar: $('input[name="anoEscolar"]').val(),
+                descricao: $('textarea[name="descricao"]').val()
+            },
+            assuntos: []
+        };
+
+        $('#table-body tr').each(function() {
+            dadosProva.assuntos.push({
+                assunto: $(this).find('.assunto').val(),
+                numeroQuestoes: parseInt($(this).find('.questoes').val()),
+                peso: parseFloat($(this).find('.peso').val())
+            });
+        });
+
+        // Salvar no localStorage
+        let provas = JSON.parse(localStorage.getItem('provas') || '[]');
+        provas.push(dadosProva);
+        localStorage.setItem('provas', JSON.stringify(provas));
+
+        // Mostrar modal de sucesso e redirecionar
+        $('#modalSuccess').modal('open');
+        $('#successAction').click(function() {
+            window.location.href = './pages/questions/index.html';
         });
     });
 });

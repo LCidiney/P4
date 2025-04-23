@@ -94,13 +94,47 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="avancar waves-effect waves-light btn">Avançar</button>
-    <div class="overlay" id="overlay"></div>
-    <div class="custom-alert" id="customAlert">
-        <h3>Atenção</h3>
-        <p id="alertMessage"></p>
-        <button onclick="closeAlert()">OK</button>
+    <!-- Botão de avançar fixo no canto inferior direito -->
+    <div class="fixed-action-btn">
+        <button class="btn-floating btn-large waves-effect waves-light green" id="avancar">
+            <i class="large material-icons">arrow_forward</i>
+        </button>
     </div>
+
+    <!-- Modal de Erro -->
+    <div id="modalError" class="modal">
+        <div class="modal-content">
+            <h4><i class="material-icons left red-text">error</i>Atenção</h4>
+            <p id="errorMessage"></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fechar</a>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="modalConfirm" class="modal">
+        <div class="modal-content">
+            <h4><i class="material-icons left">help</i>Confirmação</h4>
+            <p>Deseja avançar com os dados preenchidos?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="confirmAction">Confirmar</a>
+        </div>
+    </div>
+
+    <!-- Modal de Sucesso -->
+    <div id="modalSuccess" class="modal">
+        <div class="modal-content">
+            <h4><i class="material-icons left green-text">check_circle</i>Sucesso!</h4>
+            <p>Dados salvos com sucesso!</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="successAction">OK</a>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="./assets/JS/js/materialize.min.js"></script>

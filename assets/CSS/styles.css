@@ -223,3 +223,33 @@ button:hover {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
+
+table input {
+    width: 100%;
+    margin: 5px 0;
+    padding: 5px;
+}
+
+tr.selected {
+    background-color: #e3f2fd !important;
+}
+
+.controls {
+    margin: 20px 0;
+}
+
+.controls button {
+    margin-right: 10px;
+}
+
+table th:last-child button {
+    margin: 0 2px;
+}
+
+table td:last-child button {
+    margin: 0;
+}
+
+.btn-small i.material-icons {
+    font-size: 1.2rem;
+}
