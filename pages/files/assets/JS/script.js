@@ -1,15 +1,19 @@
 $(document).ready(function() {
     function distribuirQuestoesEmColunas(questions, maxQuestionsPerColumn = 10) {
-        const columns = [[]];
-        let currentColumn = 0;
+        const columns = [];
+        let currentColumn = [];
         
-        questions.forEach(question => {
-            if (columns[currentColumn].length >= maxQuestionsPerColumn) {
-                currentColumn++;
-                columns[currentColumn] = [];
+        questions.forEach((question, index) => {
+            if (currentColumn.length >= maxQuestionsPerColumn) {
+                columns.push(currentColumn);
+                currentColumn = [];
             }
-            columns[currentColumn].push(question);
+            currentColumn.push(question);
         });
+        
+        if (currentColumn.length > 0) {
+            columns.push(currentColumn);
+        }
         
         return columns;
     }
@@ -35,7 +39,72 @@ $(document).ready(function() {
             
             const prova = provas[provas.length - 1];
             
-            if (tipo === 'folhaResposta' || tipo === 'gabarito') {
+            if (tipo === 'folhaResposta') {
+                setTimeout(() => {
+                    // Preencher cabeçalho
+                    $('#escola', printContainer).text(prova.cabecalho.escola);
+                    $('#materia', printContainer).text(prova.cabecalho.materia);
+                    $('#professor', printContainer).text(prova.cabecalho.professor);
+                    $('#anoEscolar', printContainer).text(prova.cabecalho.anoEscolar);
+                    $('#descricao', printContainer).text(prova.cabecalho.descricao);
+
+                    // Criar array com todas as questões
+                    const allQuestions = [];
+                    let questionNumber = 1;
+
+                    // Coletar todas as questões em ordem
+                    Object.values(prova.questoes).forEach(questoesAssunto => {
+                        questoesAssunto.forEach(() => {
+                            allQuestions.push({
+                                number: questionNumber++
+                            });
+                        });
+                    });
+
+                    // Distribuir questões em colunas
+                    const columns = [];
+                    const questoesPerColumn = Math.ceil(allQuestions.length / 4); // 4 colunas
+                    
+                    for (let i = 0; i < allQuestions.length; i += questoesPerColumn) {
+                        columns.push(allQuestions.slice(i, i + questoesPerColumn));
+                    }
+
+                    // Limpar e preencher o grid de questões
+                    const questionsGrid = $('#questions-grid', printContainer);
+                    questionsGrid.empty();
+
+                    columns.forEach(columnQuestions => {
+                        const column = $('<div class="questions-column"></div>');
+                        
+                        columnQuestions.forEach(question => {
+                            const questionHtml = `
+                                <div class="question">
+                                    <span class="question-number">${formatQuestionNumber(question.number)}.</span>
+                                    <div class="options">
+                                        <span class="circle">A</span>
+                                        <span class="circle">B</span>
+                                        <span class="circle">C</span>
+                                        <span class="circle">D</span>
+                                        <span class="circle">E</span>
+                                    </div>
+                                </div>
+                            `;
+                            column.append(questionHtml);
+                        });
+                        
+                        questionsGrid.append(column);
+                    });
+
+                    // Imprimir
+                    const content = printContainer.html();
+                    const printWindow = window.open('', '_blank');
+                    printWindow.document.write(content);
+                    printWindow.document.close();
+                    printWindow.focus();
+                    printWindow.print();
+                    printWindow.close();
+                }, 100);
+            } else if (tipo === 'gabarito') {
                 setTimeout(() => {
                     // Preencher cabeçalho
                     $('#escola', printContainer).text(prova.cabecalho.escola);
@@ -135,7 +204,7 @@ $(document).ready(function() {
                             const html = `
                                 <div class="questao">
                                     <div>
-                                        <strong>${formatQuestionNumber(numeroQuestao)}.</strong> ${questao.enunciado}
+                                        <strong>${numeroQuestao}.</strong> ${questao.enunciado}
                                         <span class="peso">(Peso: ${questao.peso})</span>
                                     </div>
                                     <div class="alternativas">
@@ -152,14 +221,18 @@ $(document).ready(function() {
                         });
                     });
                     
-                    // Imprimir após preencher
+                    // Imprimir em uma nova janela
                     const content = printContainer.html();
                     const printWindow = window.open('', '_blank');
                     printWindow.document.write(content);
                     printWindow.document.close();
                     printWindow.focus();
-                    printWindow.print();
-                    printWindow.close();
+
+                    // Aguardar o carregamento completo antes de imprimir
+                    printWindow.onload = function() {
+                        printWindow.print();
+                        printWindow.close();
+                    };
                 }, 100);
             }
         });

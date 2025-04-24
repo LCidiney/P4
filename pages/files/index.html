@@ -5,54 +5,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>index</title>
-    <link rel="stylesheet" href="./assets/CSS/styles.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/CSS/materialize/css/materialize.css">
+    
 </head>
 
-<body>
-    <Header>
-        <div id="logo"><b>EducaFácil</b></div>
-        <nav>
-            <ul class="abas">
-                <li><a href="#">Instituição<br>de ensino</a></li>
-                <li><a href="#">Área do<br>professor</a></li>
-                <li><a href="#">Suporte da<br>plataforma</a></li>
+<body class="row">
+    <nav>
+        <div class="nav-wrapper green" style="padding: 0 20px;">
+            <a href="#" class="brand-logo"><b>EducaFácil</b></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#">Instituição de ensino</a></li>
+                <li><a href="#">Área do professor</a></li>
+                <li><a href="#">Suporte da plataforma</a></li>
             </ul>
-        </nav>
-    </Header>
-    <aside>
-        <nav>
-            <ul class="ferramentas">
-                <p><b>Área de provas</b></p>
-                <li><a href="../../index.html">Nova prova</a></li>
-                <li><a href="../correcao/index.html">Correção de prova</a></li>
-                <li><a href="#">Resultados</a></li>
-            </ul>
-            <ul class="ferramentas">
-                <p><b>Nova área</b></p>
-                <li><a href="#">Nova Feature</a></li>
-                <li><a href="#">Nova Feature</a></li>
-                <li><a href="#">Nova Feature</a></li>
-            </ul>
-            <ul class="ferramentas">
-                <p><b>Nova área</b></p>
-                <li><a href="#">Nova Feature</a></li>
-                <li><a href="#">Nova Feature</a></li>
-                <li><a href="#">Nova Feature</a></li>
-            </ul>
-        </nav>
-    </aside>
-    <section>
-        <h1>Arquivos</h1>
-        <button class="imprimir" data-tipo="gabarito">Imprimir Gabarito</button>
-        <button class="imprimir" data-tipo="prova">Imprimir Prova</button>
-        <button class="imprimir" data-tipo="folhaResposta">Imprimir Folha de resposta</button>
-        
-        <!-- Containers ocultos para impressão -->
+        </div>
+    </nav>
+    <nav class="col s12 m3 l2 grey" style="height: 100vh;">
+        <div class="collection">
+            <a href="./index.html" class="collection-item">Nova prova</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+        </div>
+    </nav>
+    <div class="col s12 m9 l10">
+        <h3>Arquivos</h3>
+        <button class="imprimir btn waves-effect waves-light" data-tipo="gabarito">Imprimir Gabarito</button>
+        <button class="imprimir btn waves-effect waves-light" data-tipo="prova">Imprimir Prova</button>
+        <button class="imprimir btn waves-effect waves-light" data-tipo="folhaResposta">Imprimir Folha de resposta</button>
         <div id="print-container" style="display: none;"></div>
-    </section>
-    <button type="submit" class="voltar" onclick="window.location.href='../questions/index.html'">Voltar</button>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </div>
+  
+    <div class="fixed-action-btn">
+        <button class="btn-floating btn-large waves-effect waves-light green" onclick="window.location.href='../questions/index.html'" id="avancar">
+            <i class="large material-icons">arrow_back</i>
+        </button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="./assets/JS/js/materialize.min.js"></script>
     <script src="./assets/JS/script.js"></script>
 </body>
 

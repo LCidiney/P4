@@ -83,38 +83,6 @@
             margin-bottom: 0.5cm;
             font-style: italic;
         }
-
-        /* Novos estilos para escaneamento */
-        .scan-corners {
-            position: absolute;
-            width: 1cm;
-            height: 1cm;
-        }
-        .scan-corners.top-left { top: 0.5cm; left: 0.5cm; border-top: 3px solid #000; border-left: 3px solid #000; }
-        .scan-corners.top-right { top: 0.5cm; right: 0.5cm; border-top: 3px solid #000; border-right: 3px solid #000; }
-        .scan-corners.bottom-left { bottom: 0.5cm; left: 0.5cm; border-bottom: 3px solid #000; border-left: 3px solid #000; }
-        .scan-corners.bottom-right { bottom: 0.5cm; right: 0.5cm; border-bottom: 3px solid #000; border-right: 3px solid #000; }
-
-        .scan-id {
-            position: absolute;
-            top: 0.5cm;
-            right: 2cm;
-            display: flex;
-            gap: 0.2cm;
-        }
-
-        .id-box {
-            width: 0.8cm;
-            height: 0.8cm;
-            border: 2px solid #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16pt;
-            font-weight: bold;
-            background-color: #f0f0f0;
-        }
-
         /* Adicionar texto "GABARITO" como marca d'água */
         #gabarito-wrapper::before {
             content: "GABARITO";
@@ -142,18 +110,6 @@
 </head>
 <body>
     <div id="gabarito-wrapper">
-        <div class="scan-corners top-left"></div>
-        <div class="scan-corners top-right"></div>
-        <div class="scan-corners bottom-left"></div>
-        <div class="scan-corners bottom-right"></div>
-        
-        <div class="scan-id">
-            <div class="id-box">0</div>
-            <div class="id-box">0</div>
-            <div class="id-box">0</div>
-            <div class="id-box">1</div>
-        </div>
-
         <div class="header">
             <h1>Gabarito - <span id="materia"></span></h1>
             <h1 id="escola"></h1>
@@ -167,7 +123,6 @@
         <p class="descricao" id="descricao"></p>
         <div id="questions-grid" class="questions-grid">
             <div class="question">
-                1) 
                 <div class="options">
                     <span class="circle">A</span>
                     <span class="circle">B</span>
