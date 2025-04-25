@@ -18,12 +18,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const questoes = parseInt(row.querySelector('input[type="number"].questoes').value) || 0;
             const peso = parseFloat(row.querySelector('input[type="number"].peso').value) || 0;
             
+            // Formatar peso para sempre mostrar 2 casas decimais
+            const pesoInput = row.querySelector('input[type="number"].peso');
+            pesoInput.value = peso.toFixed(2);
+            
             totalQuestoes += questoes;
             totalPeso += questoes * peso;
         });
     
         totalQuestoesElement.textContent = `Total de questões: ${totalQuestoes}`;
-        totalPesoElement.textContent = `Peso total da prova: ${totalPeso.toFixed(1)}`;
+        totalPesoElement.textContent = `Peso total da prova: ${totalPeso.toFixed(2)}`;
     }
 
     function criarLinha() {
@@ -46,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <input type="number" value="0" min="0" max="${MAX_QUESTOES_POR_ASSUNTO}" class="questoes">
             </td>
             <td>
-                <input type="number" value="1.0" min="0" step="0.1" class="peso">
+                <input type="number" value="1.00" min="0" step="0.05" class="peso">
             </td>
             <td style="text-align: right;">
                 <button class="select-btn waves-effect waves-light btn-small">
