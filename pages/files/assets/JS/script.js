@@ -39,7 +39,7 @@ $(document).ready(function() {
             
             const prova = provas[provas.length - 1];
             
-            if (tipo === 'folhaResposta') {
+            if (tipo === 'folhaResposta' || tipo === 'gabarito') {
                 setTimeout(() => {
                     // Preencher cabeçalho
                     $('#escola', printContainer).text(prova.cabecalho.escola);
@@ -54,22 +54,16 @@ $(document).ready(function() {
 
                     // Coletar todas as questões em ordem
                     Object.values(prova.questoes).forEach(questoesAssunto => {
-                        questoesAssunto.forEach(() => {
+                        questoesAssunto.forEach(questao => {
                             allQuestions.push({
-                                number: questionNumber++
+                                number: questionNumber++,
+                                correta: tipo === 'gabarito' ? questao.alternativaCorreta : null
                             });
                         });
                     });
 
                     // Distribuir questões em colunas
-                    const columns = [];
-                    const questoesPerColumn = Math.ceil(allQuestions.length / 4); // 4 colunas
-                    
-                    for (let i = 0; i < allQuestions.length; i += questoesPerColumn) {
-                        columns.push(allQuestions.slice(i, i + questoesPerColumn));
-                    }
-
-                    // Limpar e preencher o grid de questões
+                    const columns = distribuirQuestoesEmColunas(allQuestions);
                     const questionsGrid = $('#questions-grid', printContainer);
                     questionsGrid.empty();
 
@@ -79,96 +73,16 @@ $(document).ready(function() {
                         columnQuestions.forEach(question => {
                             const questionHtml = `
                                 <div class="question">
-                                    <span class="question-number">${formatQuestionNumber(question.number)}.</span>
+                                    ${formatQuestionNumber(question.number)}. 
                                     <div class="options">
-                                        <span class="circle">A</span>
-                                        <span class="circle">B</span>
-                                        <span class="circle">C</span>
-                                        <span class="circle">D</span>
-                                        <span class="circle">E</span>
+                                        <span class="circle${question.correta === 'A' ? ' correct' : ''}">A</span>
+                                        <span class="circle${question.correta === 'B' ? ' correct' : ''}">B</span>
+                                        <span class="circle${question.correta === 'C' ? ' correct' : ''}">C</span>
+                                        <span class="circle${question.correta === 'D' ? ' correct' : ''}">D</span>
+                                        <span class="circle${question.correta === 'E' ? ' correct' : ''}">E</span>
                                     </div>
                                 </div>
                             `;
-                            column.append(questionHtml);
-                        });
-                        
-                        questionsGrid.append(column);
-                    });
-
-                    // Imprimir
-                    const content = printContainer.html();
-                    const printWindow = window.open('', '_blank');
-                    printWindow.document.write(content);
-                    printWindow.document.close();
-                    printWindow.focus();
-                    printWindow.print();
-                    printWindow.close();
-                }, 100);
-            } else if (tipo === 'gabarito') {
-                setTimeout(() => {
-                    // Preencher cabeçalho
-                    $('#escola', printContainer).text(prova.cabecalho.escola);
-                    $('#materia', printContainer).text(prova.cabecalho.materia);
-                    $('#professor', printContainer).text(prova.cabecalho.professor);
-                    $('#anoEscolar', printContainer).text(prova.cabecalho.anoEscolar);
-                    $('#descricao', printContainer).text(prova.cabecalho.descricao);
-                    
-                    // Criar array com todas as questões
-                    const allQuestions = [];
-                    let questionNumber = 1;
-                    
-                    if (tipo === 'gabarito') {
-                        Object.values(prova.questoes).forEach(questoesAssunto => {
-                            questoesAssunto.forEach(questao => {
-                                allQuestions.push({
-                                    number: questionNumber++,
-                                    correta: questao.alternativaCorreta
-                                });
-                            });
-                        });
-                    } else {
-                        for (let i = 1; i <= prova.totalQuestoes; i++) {
-                            allQuestions.push({
-                                number: i
-                            });
-                        }
-                    }
-
-                    // Distribuir questões em colunas
-                    const columns = distribuirQuestoesEmColunas(allQuestions);
-                    const questionsGrid = $('#questions-grid', printContainer);
-                    questionsGrid.empty();
-
-                    // Criar colunas apenas conforme necessário
-                    columns.forEach(columnQuestions => {
-                        const column = $('<div class="questions-column"></div>');
-                        
-                        columnQuestions.forEach(question => {
-                            const questionHtml = tipo === 'gabarito' 
-                                ? `
-                                    <div class="question">
-                                        ${formatQuestionNumber(question.number)}. 
-                                        <div class="options">
-                                            <span class="circle${question.correta === 'A' ? ' correct' : ''}">A</span>
-                                            <span class="circle${question.correta === 'B' ? ' correct' : ''}">B</span>
-                                            <span class="circle${question.correta === 'C' ? ' correct' : ''}">C</span>
-                                            <span class="circle${question.correta === 'D' ? ' correct' : ''}">D</span>
-                                            <span class="circle${question.correta === 'E' ? ' correct' : ''}">E</span>
-                                        </div>
-                                    </div>
-                                `
-                                : `
-                                    <div class="question">
-                                        ${formatQuestionNumber(question.number)}. 
-                                        <div class="options">
-                                            <span class="circle">A</span>
-                                            <span class="circle">B</span>
-                                            <span class="circle">C</span>
-                                            <span class="circle">D</span>
-                                            <span class="circle">E</span>
-                                        </div>
-                                    </div>
-                                `;
                             column.append(questionHtml);
                         });
                         
