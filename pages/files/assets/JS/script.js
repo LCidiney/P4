@@ -96,7 +96,6 @@ $(document).ready(function() {
                     printWindow.document.close();
                     printWindow.focus();
                     printWindow.print();
-                    printWindow.close();
                 }, 100);
             } else if (tipo === 'prova') {
                 setTimeout(() => {
@@ -145,7 +144,6 @@ $(document).ready(function() {
                     // Aguardar o carregamento completo antes de imprimir
                     printWindow.onload = function() {
                         printWindow.print();
-                        printWindow.close();
                     };
                 }, 100);
             }

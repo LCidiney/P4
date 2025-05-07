@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const MAX_ASSUNTOS = 4;
     const MAX_QUESTOES_POR_ASSUNTO = 10;
     const adicionarBtn = document.getElementById('adicionar');
@@ -12,20 +12,20 @@ document.addEventListener('DOMContentLoaded', function() {
     function atualizarTotais() {
         let totalQuestoes = 0;
         let totalPeso = 0;
-    
+
         const rows = tableBody.getElementsByTagName('tr');
         Array.from(rows).forEach(row => {
             const questoes = parseInt(row.querySelector('input[type="number"].questoes').value) || 0;
             const peso = parseFloat(row.querySelector('input[type="number"].peso').value) || 0;
-            
+
             // Formatar peso para sempre mostrar 2 casas decimais
             const pesoInput = row.querySelector('input[type="number"].peso');
             pesoInput.value = peso.toFixed(2);
-            
+
             totalQuestoes += questoes;
             totalPeso += questoes * peso;
         });
-    
+
         totalQuestoesElement.textContent = `Total de questões: ${totalQuestoes}`;
         totalPesoElement.textContent = `Peso total da prova: ${totalPeso.toFixed(2)}`;
     }
@@ -41,29 +41,31 @@ document.addEventListener('DOMContentLoaded', function() {
         const uniqueId = `row-${idCounter++}`;
         const tr = document.createElement('tr');
         tr.dataset.id = uniqueId;
-        
+
         tr.innerHTML = `
-            <td>
-                <input type="text" placeholder="Digite o assunto..." class="assunto">
-            </td>
-            <td>
-                <input type="number" value="0" min="0" max="${MAX_QUESTOES_POR_ASSUNTO}" class="questoes">
-            </td>
-            <td>
-                <input type="number" value="1.00" min="0" step="0.05" class="peso">
-            </td>
-            <td style="text-align: right;">
-                <button class="select-btn waves-effect waves-light btn-small">
-                    <i class="material-icons">check</i>
-                </button>
-            </td>
+            <tr class="row">
+    <td class="col s6">
+        <input type="text" placeholder="Digite o assunto..." class="assunto" style="text-align: center;">
+    </td>
+    <td class="col s2">
+        <input type="number" value="0" min="0" max="${MAX_QUESTOES_POR_ASSUNTO}" class="questoes" style="text-align: center;">
+    </td>
+    <td class="col s2">
+        <input type="number" value="1.00" min="0" step="0.05" class="peso" style="text-align: center;">
+    </td>
+    <td class="col s2">
+        <button class="select-btn waves-effect waves-light btn-small" style="text-align: right;">
+            <i class="material-icons">check</i>
+        </button>
+    </td>
+</tr>
         `;
 
         tableBody.appendChild(tr);
 
         // Adicionar event listeners
         const questoesInput = tr.querySelector('.questoes');
-        questoesInput.addEventListener('input', function(e) {
+        questoesInput.addEventListener('input', function (e) {
             const value = parseInt(e.target.value);
             if (value > MAX_QUESTOES_POR_ASSUNTO) {
                 e.target.value = MAX_QUESTOES_POR_ASSUNTO;
@@ -76,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
         pesoInput.addEventListener('input', atualizarTotais);
 
         const selectBtn = tr.querySelector('.select-btn');
-        selectBtn.addEventListener('click', function() {
+        selectBtn.addEventListener('click', function () {
             document.querySelectorAll('tr').forEach(row => row.classList.remove('selected'));
             tr.classList.add('selected');
             selectedRowId = uniqueId;
@@ -88,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     adicionarBtn.addEventListener('click', criarLinha);
 
-    removerBtn.addEventListener('click', function() {
+    removerBtn.addEventListener('click', function () {
         if (selectedRowId) {
             const row = document.querySelector(`tr[data-id="${selectedRowId}"]`);
             if (row) {
@@ -160,16 +162,16 @@ document.addEventListener('DOMContentLoaded', function() {
         // Coletar dados dos assuntos, questões e pesos
         const assuntos = [];
         const rows = tableBody.getElementsByTagName('tr');
-        
+
         Array.from(rows).forEach(row => {
             const id = row.dataset.id;
             const assunto = row.querySelector('input[type="text"].assunto').value.trim();
             const questoesInput = row.querySelector('input[type="number"].questoes');
             const pesoInput = row.querySelector('input[type="number"].peso');
-            
+
             const numeroQuestoes = parseInt(questoesInput.value) || 0;
             const peso = parseFloat(pesoInput.value) || 0;
-            
+
             assuntos.push({
                 id,
                 assunto,
@@ -205,36 +207,36 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
         document.body.appendChild(mensagemErro);
-/*
-        // Adicionar estilos para a mensagem de erro
-        mensagemErro.style.position = 'fixed';
-        mensagemErro.style.top = '0';
-        mensagemErro.style.left = '0';
-        mensagemErro.style.width = '100%';
-        mensagemErro.style.height = '100%';
-        mensagemErro.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        mensagemErro.style.display = 'flex';
-        mensagemErro.style.justifyContent = 'center';
-        mensagemErro.style.alignItems = 'center';
-        mensagemErro.style.zIndex = '1000';
-
-        const erroConteudo = mensagemErro.querySelector('.erro-conteudo');
-        erroConteudo.style.backgroundColor = 'white';
-        erroConteudo.style.padding = '20px';
-        erroConteudo.style.borderRadius = '5px';
-        erroConteudo.style.maxWidth = '400px';
-        erroConteudo.style.width = '90%';
-
-        const fecharBtn = mensagemErro.querySelector('.fechar-erro');
-        fecharBtn.style.backgroundColor = '#0066cc';
-        fecharBtn.style.color = 'white';
-        fecharBtn.style.border = 'none';
-        fecharBtn.style.padding = '8px 16px';
-        fecharBtn.style.borderRadius = '4px';
-        fecharBtn.style.cursor = 'pointer';
-        fecharBtn.style.marginTop = '15px';
-*/
-        fecharBtn.addEventListener('click', function() {
+        /*
+                // Adicionar estilos para a mensagem de erro
+                mensagemErro.style.position = 'fixed';
+                mensagemErro.style.top = '0';
+                mensagemErro.style.left = '0';
+                mensagemErro.style.width = '100%';
+                mensagemErro.style.height = '100%';
+                mensagemErro.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+                mensagemErro.style.display = 'flex';
+                mensagemErro.style.justifyContent = 'center';
+                mensagemErro.style.alignItems = 'center';
+                mensagemErro.style.zIndex = '1000';
+        
+                const erroConteudo = mensagemErro.querySelector('.erro-conteudo');
+                erroConteudo.style.backgroundColor = 'white';
+                erroConteudo.style.padding = '20px';
+                erroConteudo.style.borderRadius = '5px';
+                erroConteudo.style.maxWidth = '400px';
+                erroConteudo.style.width = '90%';
+        
+                const fecharBtn = mensagemErro.querySelector('.fechar-erro');
+                fecharBtn.style.backgroundColor = '#0066cc';
+                fecharBtn.style.color = 'white';
+                fecharBtn.style.border = 'none';
+                fecharBtn.style.padding = '8px 16px';
+                fecharBtn.style.borderRadius = '4px';
+                fecharBtn.style.cursor = 'pointer';
+                fecharBtn.style.marginTop = '15px';
+        */
+        fecharBtn.addEventListener('click', function () {
             document.body.removeChild(mensagemErro);
         });
     }
@@ -295,12 +297,12 @@ document.addEventListener('DOMContentLoaded', function() {
         cancelarBtn.style.borderRadius = '4px';
         cancelarBtn.style.cursor = 'pointer';
 
-        confirmarBtn.addEventListener('click', function() {
+        confirmarBtn.addEventListener('click', function () {
             document.body.removeChild(confirmacao);
             callback(true);
         });
 
-        cancelarBtn.addEventListener('click', function() {
+        cancelarBtn.addEventListener('click', function () {
             document.body.removeChild(confirmacao);
             callback(false);
         });
@@ -347,7 +349,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fecharBtn.style.cursor = 'pointer';
         fecharBtn.style.marginTop = '15px';
 
-        fecharBtn.addEventListener('click', function() {
+        fecharBtn.addEventListener('click', function () {
             document.body.removeChild(sucesso);
             // Redirecionar para a próxima página ou recarregar
             // window.location.href = 'proxima-pagina.html';
@@ -402,10 +404,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });*/
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     // Inicializar modais
     $('.modal').modal();
-    
+
     // Validar campos obrigatórios
     function validarFormulario() {
         const campos = {
@@ -417,7 +419,7 @@ $(document).ready(function() {
         };
 
         const assuntos = [];
-        $('#table-body tr').each(function() {
+        $('#table-body tr').each(function () {
             assuntos.push({
                 assunto: $(this).find('.assunto').val(),
                 questoes: $(this).find('.questoes').val(),
@@ -426,7 +428,7 @@ $(document).ready(function() {
         });
 
         const camposVazios = [];
-        
+
         // Validar campos do cabeçalho
         Object.entries(campos).forEach(([campo, valor]) => {
             if (!valor || valor.trim() === '') {
@@ -455,9 +457,9 @@ $(document).ready(function() {
     }
 
     // Handler do botão avançar
-    $('#avancar').click(function() {
+    $('#avancar').click(function () {
         const validacao = validarFormulario();
-        
+
         if (!validacao.valido) {
             // Mostrar modal de erro
             const mensagem = `Por favor, preencha os seguintes campos:<br><ul>
@@ -473,7 +475,7 @@ $(document).ready(function() {
     });
 
     // Handler do botão confirmar
-    $('#confirmAction').click(function() {
+    $('#confirmAction').click(function () {
         // Coletar e salvar dados
         const dadosProva = {
             cabecalho: {
@@ -486,7 +488,7 @@ $(document).ready(function() {
             assuntos: []
         };
 
-        $('#table-body tr').each(function() {
+        $('#table-body tr').each(function () {
             dadosProva.assuntos.push({
                 assunto: $(this).find('.assunto').val(),
                 numeroQuestoes: parseInt($(this).find('.questoes').val()),
@@ -501,7 +503,7 @@ $(document).ready(function() {
 
         // Mostrar modal de sucesso e redirecionar
         $('#modalSuccess').modal('open');
-        $('#successAction').click(function() {
+        $('#successAction').click(function () {
             window.location.href = './pages/questions/index.html';
         });
     });

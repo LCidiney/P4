@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>index</title>
+    <title>EducaFacil</title>
     <!-- <link rel="stylesheet" href="./assets/CSS/styles.css"> -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./assets/CSS/materialize/css/materialize.css">
 </head>
 
-<body class="row">
+<body class="row" >
     <nav>
         <div class="nav-wrapper green" style="padding: 0 20px;">
             <a href="#" class="brand-logo"><b>EducaFácil</b></a>
@@ -21,9 +21,13 @@
             </ul>
         </div>
     </nav>
-    <nav class="col s12 m3 l2 grey" style="height: 100vh;">
+    <nav class="col s12 m3 l2 grey" style="height: 100%; border-radius: 0px 0px 5px;">
         <div class="collection">
             <a href="./index.html" class="collection-item">Nova prova</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
+            <a href="./index.html" class="collection-item">Nova feature</a>
             <a href="./index.html" class="collection-item">Nova feature</a>
             <a href="./index.html" class="collection-item">Nova feature</a>
             <a href="./index.html" class="collection-item">Nova feature</a>
@@ -42,16 +46,16 @@
                 <form class="s12">
                     <div class="row col s12 m12 l12">
                         <div class="input-field col s12 m12 l6">
-                            <input type="text" name="escola" placeholder="Digite o nome da escola">
+                            <input style="text-align: center;" type="text" name="escola" placeholder="Digite o nome da escola">
                         </div>
                         <div class="input-field col s12 m12 l6">
-                            <input type="text" name="professor" placeholder="Digite o nome do professor">
+                            <input style="text-align: center;" type="text" name="professor" placeholder="Digite o nome do professor">
+                        </div>
+                        <div  class="input-field col s12 m12 l6">
+                            <input style="text-align: center;" type="text" name="materia" placeholder="Digite o nome da matéria">
                         </div>
                         <div class="input-field col s12 m12 l6">
-                            <input type="text" name="materia" placeholder="Digite o nome da matéria">
-                        </div>
-                        <div class="input-field col s12 m12 l6">
-                            <input type="text" name="anoEscolar" placeholder="Digite o ano escolar">
+                            <input style="text-align: center;" type="Number" name="anoEscolar" placeholder="Digite o ano escolar">
                         </div>
                     </div>
                     <div class="row col s12">
@@ -67,15 +71,15 @@
         <h4>Configuração dos Assuntos</h4>
         <table class="striped centered">
             <thead>
-                <tr>
-                    <th>Assunto</th>
-                    <th>Quantidade de questões</th>
-                    <th>Peso</th>
-                    <th style="width: 150px; text-align: right;">
+                <tr class="row">
+                    <th class="col s6">Assunto</th>
+                    <th class="col s2">Quantidade de questões</th>
+                    <th class="col s2">Peso</th>
+                    <th class="col s2" style="width: 150px; text-align: right;">
                         <button id="adicionar" class="waves-effect waves-light btn-small green">
                             <i class="material-icons">add</i>
                         </button>
-                        <button id="remover" class="waves-effect waves-light btn-small red" disabled>
+                        <button style="text-align: right;" id="remover" class="waves-effect waves-light btn-small red" disabled>
                             <i class="material-icons">remove</i>
                         </button>
                     </th>
