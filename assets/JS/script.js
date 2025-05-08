@@ -53,8 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
     <td class="col s2">
         <input type="number" value="1.00" min="0" step="0.05" class="peso" style="text-align: center;">
     </td>
-    <td class="col s2">
-        <button class="select-btn waves-effect waves-light btn-small" style="text-align: right;">
+    <td class="col s2" style="margin-top: 10px;">
+        <button class="select-btn waves-effect waves-light btn-small">
             <i class="material-icons">check</i>
         </button>
     </td>
